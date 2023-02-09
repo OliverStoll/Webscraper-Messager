@@ -1,0 +1,6 @@
+/output/*.csv
+/output/websites/*.csv
+/res/cookies/*.txt
+/build
+
+!*/.gitkeep

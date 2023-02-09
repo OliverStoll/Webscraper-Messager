@@ -1,0 +1,135 @@
+NEGATIVE_KEYWORDS: ['Test', 'Senior', 'IBM Cloud', 'Oracle', 'SAP', 'Compliance', 'Trainer', 'Security', 'embedded',
+                     'Systemadmin', 'Blockchain', 'teil remote']
+SEARCH_TEXT: 'Python'
+SEARCH_LOCATION: ''
+
+SCRAPER:
+  FREELANCE:
+    link: "https://www.freelance.de/Python-Projekte"
+    element_class: 'panel-body.single-profile.clearfix'
+    page_sleep: 0
+    time_estimation: 0.005
+    number_elements:
+      id: pagination
+      text_split: ["von ", 1]
+    next_page:
+      selector: '#pagination > nav > ul > li:nth-child(9) > a'
+    values:
+      title:
+        class: 'action-icons-overlap'
+        output: 'text'
+      tags:
+        class: 'tag-group.margin-top-sm'
+        output: 'text'
+      start:
+        class: 'icon-list > li:nth-child(1)'
+        output: 'text'
+      location:
+        class: 'icon-list > li:nth-child(2)'
+        output: 'text'
+      remote:
+        class: 'icon-list > li:nth-child(3)'
+        output: 'text'
+      link:
+        class: 'action-icons-overlap > a:nth-child(1)'
+        output: 'href'
+  UPWORK:
+    link: "https://www.upwork.com/nx/jobs/search/?q=python&sort=client_total_charge%2Bdesc&contractor_tier=1,2&client_hires=1-9,10-&proposals=0-4,5-9,10-14&connect_price=0-2"
+    element_class: 'up-card-section.up-card-list-section.up-card-hover'
+    page_sleep: 1.5
+    time_estimation: 0.01
+    number_elements:
+      selector: '#main > div > div > div > div > div.col-9 > div > div.up-card-section.pt-0 > div > section > div.pt-20.d-flex.align-items-center.justify-space-between > div:nth-child(1) > span'
+      text_split: [" jobs", 0]
+    next_page:
+      selector: "#main > div > div > div > div > div.col-9 > div > div.up-card-section.pt-0 > div > div.up-card-footer.pb-0.d-flex.justify-space-between > nav > ul > li:nth-child(9) > button"
+    values:
+      title:
+        class: "my-0.p-sm-right.job-tile-title"
+        output: 'text'
+      description:
+        class: "up-line-clamp-v2.clamped"
+        output: 'text'
+      features:
+        class: "text-muted.display-inline-block.text-muted"
+        output: 'text'
+      tags:
+        class: "up-skill-wrapper"
+        output: 'text'
+      link:
+        class: "job-tile-title > a"
+        output: 'href'
+  FREELANCERMAP:
+    link: "https://www.freelancermap.de/projektboerse.html?cityName=&newQuery=&continents=&countries%5B%5D=1&states=&city=&radius=&query=Python&contractTypes%5B0%5D=remote&excludeDachProjects=0&pagenr=1&sort=2"
+    element_class: 'project-container.card.box'
+    page_sleep: 1
+    time_estimation: 0.005
+    number_elements:
+      selector: "button.fm-btn.fm-btn-dark"
+      text_split: [" Projekte", 0]
+    next_page:
+      link_offset:
+        variable_name: 'pagenr'
+        offset: 1
+    values:
+      title:
+        class: "top-project-text"
+        output: 'text'
+      description:
+        class: "description.m-y-24px"
+        output: 'text'
+      tags:
+        class: "keywords-container.d-flex"
+        output: 'text'
+      link:
+        class: "top-project-text > h3 > a"
+        output: 'href'
+
+# HERE INDIVIDUAL CONFIGURATIONS FOR EACH WEBSITES MESSAGING FORM ARE ADDED
+MESSAGER:
+  FREELANCE:
+    max_messages_successful: 5
+    max_messages_total: 100
+    sleep_before: 1
+    sleep_after: 2
+    content_selector: 'div.panel-body.highlight-text'
+    already_applied: '#project_container > div:nth-child(2) > div.col-sm-4.col-md-3 > div.panel.panel-default.panel-white > div > i'
+    actions:
+      - action: 'click'
+        selector: '#profile_up_to_date'
+      - action: 'click'
+        selector: '#data_policy_accepted'
+      - action: 'click'
+        selector: 'div.clearfix > button.btn.btn-default.pull-right'
+        required: True
+
+  FREELANCERMAP:
+    sleep_before: 1
+    sleep_after: 2
+    # already_applied: ''
+    content_selector: 'div.projectcontent > div.content:not(.keywords-container)'
+    actions:
+      - action: 'scroll_to'
+        amount: 1500
+      - action: 'click_all'
+        selector: 'div.form-check.form-check-flex > input'
+      - action: 'text-input'
+        selector: '#apply_project_form_content'
+        input_file: 'application.txt'
+
+  UPWORK:
+    sleep_before: 2
+    sleep_after: 2
+    # already_applied: ''
+    content_selector: 'div.job-description'
+    actions:
+      - action: 'click'
+        selector: 'button.submit-proposal-button'
+      - action: 'dropdown'
+        selector: '#dropdown-label-2'
+        option: 'li.up-menu-item:nth-child(4)'
+      - action: 'text-input'
+        selector: 'div.cover-letter-area > div > textarea'
+        input_file: 'application.txt'
+      # - action: 'click'
+      #   selector: 'footer > div > button.up-btn-primary'
