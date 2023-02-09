@@ -1,8 +1,10 @@
 NEGATIVE_KEYWORDS: ['Test', 'Senior', 'IBM Cloud', 'Oracle', 'SAP', 'Compliance', 'Trainer', 'Security', 'embedded',
                      'Systemadmin', 'Blockchain', 'teil remote']
-SEARCH_TEXT: 'Python'
-SEARCH_LOCATION: ''
 
+WEBSITE_LIST: ['freelance']  # TODO: integrate other websites, when they work
+
+
+# CONFIGURATIONS FOR THE CONTENT SCRAPING OF THE WEBSITES
 SCRAPER:
   FREELANCE:
     link: "https://www.freelance.de/Python-Projekte"
@@ -85,7 +87,8 @@ SCRAPER:
         class: "top-project-text > h3 > a"
         output: 'href'
 
-# HERE INDIVIDUAL CONFIGURATIONS FOR EACH WEBSITES MESSAGING FORM ARE ADDED
+
+# CONFIGURATION FOR THE MESSAGE SENDING ON THE WEBSITES
 MESSAGER:
   FREELANCE:
     max_messages_successful: 5

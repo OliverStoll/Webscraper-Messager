@@ -1,6 +1,3 @@
-import os
-from time import sleep
-
 from src.scraper import scrape_all_pages
 from src.data_cleaner import filter_data
 from src.messaging import send_messages_to_all_websites
@@ -9,8 +6,7 @@ from undetected_chromedriver.v2 import Chrome
 
 
 if __name__ == '__main__':
-    # TODO: integrate other websites, when they work
-
+    websites = config['WEBSITE_LIST']
     driver = Chrome(use_multiprocessing=True)
     df = scrape_all_pages(driver=driver, scraper_config=config['SCRAPER']['FREELANCE'])
     filtered_df = filter_data(df)

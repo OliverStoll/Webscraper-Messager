@@ -12,7 +12,7 @@ Applications can range from job offers, apartment listings or even news articles
 # How to use locally
 
 ### Build
-`pyinstaller --onefile main.py --distpath .  --name "Webscraper" --icon=res/icon.ico --log-level=WARN --specpath build/Webscraper`
+`pyinstaller --onefile main.py --distpath .  --name "Webscraper" --icon=../../res/icon.ico  --log-level=WARN --specpath build/Webscraper`
 
 ### Schedule
 To use the executable with Windows Task Scheduler, create a scheduled Task and set "Start in" as the project directory 
